@@ -1,0 +1,602 @@
+/*
+ * Author       : gracejeyarani.p.2024.cse1
+ * Generated on : 31-Jul-2026 15:19:47
+ * Version      : 1.0
+ */
+ application "Patient Appointment Booking Form"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form Appointment_Booking_Form
+		{
+			success message = "Appointment has booked Successfully!"
+			Section
+			(
+				type = section
+				visibility = true
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Patient_Name
+			(
+    			type = name
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Age
+			(
+				type = number
+				maxchar = 3
+				initial value = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Gender
+			(
+				type = radiobuttons
+				maxchar = 100
+				values = {"Male","Female","Other"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Contact_Details
+			(
+				type = section
+				displayname = "Contact Details"
+				visibility = true
+	 			row = 2
+	 			column = 0   
+				width = medium
+			)
+			Email_Address
+			(
+    			type = email
+				maxchar = 80
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Contact_Number
+			(
+    			type = phonenumber
+    			allowedcountries={in}
+    			defaultcountry="in"
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Residential_Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Section2
+			(
+				type = section
+				displayname = "Medical Details"
+				visibility = true
+	 			row = 3
+	 			column = 0   
+				width = medium
+			)
+			Referred_By
+			(
+    			type = text
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			must have Department
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Cardiology","Pediatrics","Obstetrics and Gynecology","Orthopedics","Neurology"}
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Existing_Conditions
+			(
+				type = list	
+				values = {"Heart & Stroke","Infectious Diseases","Mental Health & Neurological Disorders"}
+				height = 60px
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Symptoms_Description
+			(
+    			type = textarea
+				height = 100px
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Scheduling_Consent
+			(
+				type = section
+				displayname = "Scheduling & Consent"
+				visibility = true
+	 			row = 4
+	 			column = 0   
+				width = medium
+			)
+			must have Preferred_Appointment_Date
+			(
+    			type = date
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			Preferred_Appointment_Time
+			(
+    			type = time
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			must have Consent_For_Treatment
+			(
+				type = checkboxes	
+				values = {"Agreed"}
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list Appointment_Booking_Form_Report
+		{
+			displayName = "Appointment_Booking_Form Report"
+			show all rows from Appointment_Booking_Form    
+			(
+				Patient_Name 
+				Age
+				Gender
+				Email_Address
+				Contact_Number
+				(
+					displayformat = plainnumber 
+				)
+				Residential_Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Referred_By
+				Department
+				Existing_Conditions
+				Symptoms_Description
+				Preferred_Appointment_Date
+				Preferred_Appointment_Time
+				Consent_For_Treatment
+			)
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			Send_Email_Form_Propertie as "Send Email - Form Properties"
+			{
+				type =  presuccess
+				form = Appointment_Booking_Form
+				on start
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : "zoho.adminuserid"
+							subject : "Patient Appointment Booking Form : New entry added"
+							message : "Hello,<br/><br/>A new entry added in 'Appointment_Booking_Form' form of 'Patient Appointment Booking Form' application.<br/>"
+							attachments : template : _default as inline
+						)
+					}
+				}
+			}
+		}
+
+
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+
+	web
+	{
+		forms
+		{
+			form Appointment_Booking_Form
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report Appointment_Booking_Form_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Patient_Name
+								Age
+								Gender
+								Email_Address
+								Contact_Number
+								Residential_Address
+								Referred_By
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Patient_Name
+								Age
+								Gender
+								Email_Address
+								Contact_Number
+								Residential_Address
+								Referred_By
+								Department
+								Existing_Conditions
+								Symptoms_Description
+								Preferred_Appointment_Date
+								Preferred_Appointment_Time
+								Consent_For_Treatment
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Appointment_Booking_Form
+				{
+					displayname = "Appointment_Booking_Form"
+					icon = "tech-desktop"
+					form  Appointment_Booking_Form
+					{
+						icon = "tech-desktop"
+					}
+					report Appointment_Booking_Form_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+				}
+			}
+		}
+		customize
+		{
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Appointment_Booking_Form
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Appointment_Booking_Form
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = yellow
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
